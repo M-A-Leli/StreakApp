@@ -1,0 +1,40 @@
+{
+    "habits": [
+      {
+        "id": 1,
+        "icon": "logo-no-smoking",
+        "name": "Smoking",
+        "date": "2023-04-19",
+        "description": "Quit smoking cigarettes."
+      },
+      {
+        "id": 2,
+        "icon": "bicycle",
+        "name": "Cycling",
+        "date": "2023-05-01",
+        "description": "Started cycling daily."
+      },
+      {
+        "id": 3,
+        "icon": "pizza",
+        "name": "Healthy Eating",
+        "date": "2023-03-10",
+        "description": "Maintaining a healthy diet."
+      },
+      {
+        "id": 4,
+        "icon": "bed",
+        "name": "Enough Sleep",
+        "date": "2023-05-15",
+        "description": "Getting at least 8 hours of sleep."
+      },
+      {
+        "id": 5,
+        "icon": "walk",
+        "name": "Taking Walks",
+        "date": "2023-04-25",
+        "description": "Taking a walk every day."
+      }
+    ]
+  }
+  

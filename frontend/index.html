@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreakApp</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <section id="main">
+        <div id="hero">
+            <img src="./streak-app.png" alt="streak app">
+            <h1>Welcome to my streak app</h1>
+        </div>
+        <div id="activities">
+            <!-- This div will open the modal -->
+            <div id="add-habit-card" class="card add-card">
+                <p>+ Add New Habit</p>
+            </div>
+        </div>
+    </section>
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <form id="habit-form">
+                <div class="input-group">
+                    <label for="habit-name">name</label>
+                    <input type="text" id="habit-name" placeholder="Habit name" required>
+                </div>
+                <div class="input-group">
+                    <label for="habit-description">description</label>
+                    <textarea name="habit-description" id="habit-description" placeholder="Habit description" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="habit-date">start date</label>
+                    <input type="date" id="habit-date" required>
+                </div>
+                <button type="submit">Add Habit</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="./dist/app.js"></script>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+</body>
+</html>
