@@ -12,7 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* overflow: auto; */
+    overflow-x: hidden;
 }
 
 #main {
@@ -54,16 +54,15 @@ body {
     width: 100%;
     height: auto;
     min-height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     /* overflow-x: scroll; */
 }
 
 #main  #activities .card {
-    width: 50%;
-    height: 80%;
+    width: 100%;
+    height: 40vh;
     padding: 15px;
     border: 1px solid #ff5580;
     border-radius: 5px;
@@ -89,8 +88,21 @@ body {
     font-size: 60px;
 }
 
+#main  #activities .card button {
+    width: 40%;
+    padding: 5px;
+    border: none;
+    border-radius: 15px;
+    background-color: #ff704c;
+    color: #ffffff;
+}
+
+#main  #activities .card button:hover {
+    cursor: pointer;
+}
+
 .modal {
-    display: none;
+    /* display: none; */
     position: fixed;
     z-index: 1;
     left: 0;

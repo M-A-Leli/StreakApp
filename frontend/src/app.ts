@@ -18,16 +18,6 @@ class StreakApp {
     }
 
     // Fetch habits from JSON server
-    // private fetchHabits(): void {
-    //     fetch('http://localhost:3000/habits')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             this.habits = data.habits;
-    //             this.renderHabits();
-    //         })
-    //         .catch(error => console.error('Error fetching habits:', error));
-    // }
-
     private async fetchHabits(): Promise<void> {
         try {
             const response = await fetch('http://localhost:3000/habits');
@@ -42,7 +32,12 @@ class StreakApp {
                     name: habit.name,
                     date: habit.date,
                     description: habit.description,
-                    getDaysSince: () => 0 // You need to implement this method
+                    getDaysSince: function () {
+                        const today = new Date();
+                        const start = new Date(this.date);
+                        const timeDiff = Math.abs(today.getTime() - start.getTime());
+                        return Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    }
                 }));
                 this.renderHabits();
             } else {
@@ -53,6 +48,7 @@ class StreakApp {
         }
     }
 
+
     // Render habits as cards
     private renderHabits(): void {
         const activitiesDiv = document.getElementById('activities') as HTMLDivElement;
@@ -61,6 +57,7 @@ class StreakApp {
         // Create and append "Add New Habit" card
         const addCard = document.createElement('div');
         addCard.className = 'card add-card';
+        addCard.id = 'add-habit-card';
         addCard.innerHTML = '<p><ion-icon name="add-circle-outline"></ion-icon> Add New Habit</p>';
         addCard.addEventListener('click', () => this.openModal());
         activitiesDiv.appendChild(addCard);
@@ -83,15 +80,27 @@ class StreakApp {
             <p>Streak: ${habit.getDaysSince()} days</p>
             <button class="delete-btn" data-id="${habit.id}">Delete</button>
         `;
+
         // Add event listener to delete button
         card.querySelector('.delete-btn')?.addEventListener('click', () => {
-            this.deleteHabit(habit.id);
+            const confirmed = confirm('Are you sure you want to delete this habit?');
+            if (confirmed) {
+                this.deleteHabit(habit.id)
+                    .then(() => {
+                        this.renderHabits(); // Render habits after deletion
+                    })
+                    .catch(error => {
+                        console.error('Error deleting habit:', error);
+                    });
+            }
         });
         return card;
     }
 
     // Setup event listeners
     private setupEventListeners(): void {
+        // const activitiesDiv = document.getElementById('activities') as HTMLDivElement;
+
         const addHabitCard = document.getElementById('add-habit-card') as HTMLDivElement;
         addHabitCard.addEventListener('click', () => {
             this.openModal();
@@ -123,28 +132,55 @@ class StreakApp {
     }
 
     // Add habit
-    private addHabit(): void {
+    private async addHabit(): Promise<void> {
         const habitNameInput = document.getElementById('habit-name') as HTMLInputElement;
         const habitDescriptionInput = document.getElementById('habit-description') as HTMLTextAreaElement;
         const habitDateInput = document.getElementById('habit-date') as HTMLInputElement;
 
         const newHabit: Habit = {
-            id: this.habits.length + 1, // Generate unique id
-            icon: '', // You need to implement logic to select an icon
+            id: this.habits.length + 1, // Temporary id until confirmed by the server
+            icon: 'clipboard',
             name: habitNameInput.value,
             description: habitDescriptionInput.value,
             date: habitDateInput.value,
-            getDaysSince: () => 0 // You need to implement logic to calculate days since start date
+            getDaysSince: () => 0
         };
 
-        this.habits.push(newHabit);
-        this.renderHabits();
+        try {
+            const response = await fetch('http://localhost:3000/habits', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newHabit),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add habit');
+            }
+
+            const savedHabit = await response.json();
+            this.habits.push(savedHabit);
+            this.renderHabits();
+        } catch (error) {
+            console.error('Error adding habit:', error);
+        }
     }
 
     // Delete habit
-    private deleteHabit(id: number): void {
-        this.habits = this.habits.filter(habit => habit.id !== id);
-        this.renderHabits();
+    private async deleteHabit(id: number): Promise<void> {
+        try {
+            const response = await fetch(`http://localhost:3000/habits/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete habit');
+            }
+            this.habits = this.habits.filter(habit => habit.id !== id);
+            this.renderHabits();
+        } catch (error) {
+            console.error('Error deleting habit:', error);
+        }
     }
 }
 
