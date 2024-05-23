@@ -12,7 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 #main {
@@ -180,4 +180,89 @@ form button:hover {
 
 .hidden {
     display: none;
+}
+
+@media only screen and (min-width: 767px) and (max-width: 1024px) {
+    body {
+        height: auto;
+    }
+
+    #main {
+        height: auto;
+    }
+
+    #main #hero {
+        padding: 30px;
+        text-align: center;
+        height: 50vh;
+        justify-content: center;
+    }
+
+    #main #activities {
+        justify-self: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #main #activities .card {
+        width: 100%;
+        min-height: 40vh;
+    }
+}
+
+@media only screen and (min-width: 479px) and (max-width: 767px) {
+    body {
+        height: auto;
+        padding: 30px;
+    }
+
+    #main {
+        height: auto;
+    }
+
+    #main #hero {
+        padding: 30px;
+        text-align: center;
+        height: 50vh;
+        justify-content: center;
+    }
+
+    #main #activities {
+        justify-self: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #main #activities .card {
+        width: 100%;
+        min-height: 40vh;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    body {
+        height: auto;
+        padding: 0;
+    }
+
+    #main {
+        height: auto;
+    }
+
+    #main #hero {
+        padding: 30px;
+        text-align: center;
+        height: 50vh;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #main #activities {
+        flex-direction: column;
+    }
+
+    #main #activities .card {
+        width: 80%;
+        min-height: 40vh;
+    }
 }
