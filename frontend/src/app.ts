@@ -1,11 +1,11 @@
-// Define Habit interface
+// Habit interface
 interface Habit {
     id: number;
     icon: string;
     name: string;
     date: string;
     description: string;
-    getDaysSince: () => number; // Assume this method exists
+    getDaysSince: () => number;
 }
 
 // Class representing the Streak App
@@ -39,7 +39,7 @@ class StreakApp {
                         return Math.ceil(timeDiff / (1000 * 3600 * 24));
                     }
                 }));
-                this.renderHabits();
+                this.renderHabits(); // Render habits after addition
             } else {
                 throw new Error('Invalid habits data format');
             }
@@ -99,8 +99,6 @@ class StreakApp {
 
     // Setup event listeners
     private setupEventListeners(): void {
-        // const activitiesDiv = document.getElementById('activities') as HTMLDivElement;
-
         const addHabitCard = document.getElementById('add-habit-card') as HTMLDivElement;
         addHabitCard.addEventListener('click', () => {
             this.openModal();
@@ -138,7 +136,7 @@ class StreakApp {
         const habitDateInput = document.getElementById('habit-date') as HTMLInputElement;
 
         const newHabit: Habit = {
-            id: this.habits.length + 1, // Temporary id until confirmed by the server
+            id: this.habits.length + 1,
             icon: 'clipboard',
             name: habitNameInput.value,
             description: habitDescriptionInput.value,

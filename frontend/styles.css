@@ -247,7 +247,7 @@ form button:hover {
 
     #main #activities .card {
         width: 100%;
-        min-height: 40vh;
+        min-height: 50vh;
     }
 }
 
@@ -270,11 +270,12 @@ form button:hover {
     }
 
     #main #activities {
+        display: flex;
         flex-direction: column;
     }
 
     #main #activities .card {
-        width: 80%;
-        min-height: 40vh;
+        width: 100%;
+        min-height: 50vh;
     }
 }
