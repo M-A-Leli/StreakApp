@@ -34,6 +34,13 @@
       "name": "Taking Walks",
       "date": "2024-04-25",
       "description": "Taking a walk every day."
+    },
+    {
+      "id": 7,
+      "icon": "clipboard",
+      "name": "habit 7",
+      "description": "this is a description",
+      "date": "2024-05-24"
     }
   ]
 }

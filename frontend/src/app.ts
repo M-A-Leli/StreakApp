@@ -160,6 +160,13 @@ class StreakApp {
             }
 
             const savedHabit = await response.json();
+            // Assign the getDaysSince function
+            savedHabit.getDaysSince = function () {
+                const today = new Date();
+                const start = new Date(this.date);
+                const timeDiff = Math.abs(today.getTime() - start.getTime());
+                return Math.ceil(timeDiff / (1000 * 3600 * 24));
+            };
             this.habits.push(savedHabit);
             this.renderHabits();
         } catch (error) {
